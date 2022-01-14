@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Kubernetes 指令学习 | AbnerMai Blog</title>
+    <meta name="generator" content="VuePress 1.9.3">
+    <link rel="icon" href="/AbnerMaiBlog/images/logo/mayi-logo.png">
+    <script src="https://cdn.jsdelivr.net/npm/react/umd/react.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"></script>
+    <script>
+				var _hmt = _hmt || [];
+				(function() {
+				  var hm = document.createElement("script");
+				  hm.src = "https://hm.baidu.com/hm.js?d30b27a288ed3930ca72a51b397d8b82";
+				  var s = document.getElementsByTagName("script")[0]; 
+				  s.parentNode.insertBefore(hm, s);
+				})();
+			</script>
+    <link rel="manifest" href="/AbnerMaiBlog/manifest.webmanifest" crossorigin="use-credentials">
+    <link rel="apple-touch-icon" href="./assets/icon/apple-icon-152.png">
+    <meta name="description" content="Kubernetes 常用指令学习">
+    <meta property="og:url" content="/AbnerMaiBlog/blog/ops/K8S/kubernetesCommand.html">
+    <meta property="og:site_name" content="AbnerMai Blog">
+    <meta property="og:title" content="Kubernetes 指令学习">
+    <meta property="og:description" content="Kubernetes 常用指令学习">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh-CN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:alt" content="AbnerMai Blog">
+    <meta property="article:author" content="Abner Mai">
+    <meta property="article:tag" content="Kubernetes">
+    <meta property="article:published_time" content="2021-12-16T00:00:00.000Z">
+    <meta name="theme-color" content="#46bd87">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="msapplication-TileImage" content="./assets/icon/ms-icon-144.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    <link rel="preload" href="/AbnerMaiBlog/assets/css/0.styles.25ca590b.css" as="style"><link rel="preload" href="/AbnerMaiBlog/assets/js/app.42ce9417.js" as="script"><link rel="preload" href="/AbnerMaiBlog/assets/js/vendors~layout-Layout.26036b5e.js" as="script"><link rel="preload" href="/AbnerMaiBlog/assets/js/vendors~layout-Blog~layout-Layout~layout-NotFound.7f1770bf.js" as="script"><link rel="preload" href="/AbnerMaiBlog/assets/js/page-Kubernetes指令学习.a51b9b00.js" as="script"><link rel="preload" href="/AbnerMaiBlog/assets/js/vendors~layout-Blog~layout-Layout~layout-NotFound~layout-Slide.0c451bde.js" as="script"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/66.b7ae11a4.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/67.632248d4.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/68.fb47c34e.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/69.32f36a65.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/70.e6925922.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/71.7e78bac6.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/layout-Blog.008f5a70.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/layout-Layout.d44c6185.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/layout-NotFound.d7636afa.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/layout-Slide.23a21fe2.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/mermaid.e5803e8b.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-48国际音标.b93d0892.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-AVL树.404ac2fb.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-BlogDirectPage.174809e6.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-CentOS服务器搭建--网络配置.f9fa9c2b.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-Dockerfile基础学习.337424f5.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-Docker基础学习.03c1b2d2.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-Docker特殊指令(持续更新).df872e79.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-Github登录访问问题.c53066ab.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-Git随手指令笔记.f41d2321.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-HTTP网络.4b29f553.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-Hexo添加hexo-theme-miho主题.af0baab3.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-Hexo添加搜索功能与百度分析.3166b7e3.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-JAVA.245007a6.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-JAVA基础.8a97ae35.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-Jenkins升级后构建失败.6c4845dd.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-Markdown增强.b4d86a40.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-MyBatis之![CDATA[]].d726a63e.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-MySQL编码及与排序规则问题.2b14057e.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-OpenFeign使用异常记录（持续更新）.0ffd1dd8.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-SpringBootDataSource配置.7349fbeb.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-SpringBootDruid.cb196e49.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-SpringBoot之@Scheduled定时器规则.709980a4.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-SpringBoot之更改Tomcat的URL校验规则.9f54503d.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-SpringQueryMap使用.392c74c9.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-UML.ce3a5938.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-Web前端.dd392b11.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-Windows10VBScript操作WSL.a96e0712.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-Windows10WSL2网络通信.d18072d8.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-主要功能与配置演示.1c5a267c.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-主页.75e5d8d2.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-二叉查找树.63d19691.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-二叉树.d1a56c6b.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-兴趣列表.57dc7a4a.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-协议与网络.06a536be.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-友情链接.6df9792d.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-密码加密的文章.471bf9cf.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-幻灯片页.7b811b6d.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-微信支付v3.ab3824ac.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-微信支付流程(V2).2a7373c0.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-数据库.b4eee244.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-时序图.a35bf0a6.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-框架.4d7d1b2c.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-简单搭建Hexo.ce87ab5d.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-类图.ffaa091f.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-组件禁用.6281278b.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-自定义布局.5cb98743.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-英语学习.1eb70fb3.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-英语词性及简写.e744e54f.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-设计模式.3df4dfc7.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-运维.81d23ae0.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/page-页面配置.dfd4d05c.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/vendors~flowchart.a38c5833.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/vendors~mermaid.2492e04e.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/vendors~photo-swipe.c19a06f2.js"><link rel="prefetch" href="/AbnerMaiBlog/assets/js/vendors~reveal.2b7aceda.js">
+    <link rel="stylesheet" href="/AbnerMaiBlog/assets/css/0.styles.25ca590b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container has-navbar has-sidebar has-anchor"><header class="navbar"><!----> <div class="content__navbar-start"></div> <button title="Sidebar Button" class="sidebar-button"><span class="icon"></span></button> <a href="/AbnerMaiBlog/" class="home-link router-link-active"><img src="/AbnerMaiBlog/images/logo/mayi-logo.png" alt="AbnerMai Blog" class="logo"> <!----> <span class="site-name can-hide">AbnerMai Blog</span></a> <!----> <div class="content__navbar-center"></div> <div class="links"><button tabindex="-1" aria-hidden="true" class="color-button"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="skin-icon"><path d="M224 800c0 9.6 3.2 44.8 6.4 54.4 6.4 48-48 76.8-48 76.8s80 41.6 147.2 0 134.4-134.4
+        38.4-195.2c-22.4-12.8-41.6-19.2-57.6-19.2C259.2 716.8 227.2 761.6 224 800zM560 675.2l-32
+        51.2c-51.2 51.2-83.2 32-83.2 32 25.6 67.2 0 112-12.8 128 25.6 6.4 51.2 9.6 80 9.6 54.4 0
+        102.4-9.6 150.4-32l0 0c3.2 0 3.2-3.2 3.2-3.2 22.4-16 12.8-35.2
+        6.4-44.8-9.6-12.8-12.8-25.6-12.8-41.6 0-54.4 60.8-99.2 137.6-99.2 6.4 0 12.8 0 22.4
+        0 12.8 0 38.4 9.6 48-25.6 0-3.2 0-3.2 3.2-6.4 0-3.2 3.2-6.4 3.2-6.4 6.4-16 6.4-16 6.4-19.2
+        9.6-35.2 16-73.6 16-115.2 0-105.6-41.6-198.4-108.8-268.8C704 396.8 560 675.2 560 675.2zM224
+        419.2c0-28.8 22.4-51.2 51.2-51.2 28.8 0 51.2 22.4 51.2 51.2 0 28.8-22.4 51.2-51.2 51.2C246.4
+        470.4 224 448 224 419.2zM320 284.8c0-22.4 19.2-41.6 41.6-41.6 22.4 0 41.6 19.2 41.6 41.6 0
+        22.4-19.2 41.6-41.6 41.6C339.2 326.4 320 307.2 320 284.8zM457.6 208c0-12.8 12.8-25.6 25.6-25.6
+        12.8 0 25.6 12.8 25.6 25.6 0 12.8-12.8 25.6-25.6 25.6C470.4 233.6 457.6 220.8 457.6 208zM128
+        505.6C128 592 153.6 672 201.6 736c28.8-60.8 112-60.8 124.8-60.8-16-51.2 16-99.2
+        16-99.2l316.8-422.4c-48-19.2-99.2-32-150.4-32C297.6 118.4 128 291.2 128 505.6zM764.8
+        86.4c-22.4 19.2-390.4 518.4-390.4 518.4-22.4 28.8-12.8 76.8 22.4 99.2l9.6 6.4c35.2 22.4
+        80 12.8 99.2-25.6 0 0 6.4-12.8 9.6-19.2 54.4-105.6 275.2-524.8 288-553.6
+        6.4-19.2-3.2-32-19.2-32C777.6 76.8 771.2 80 764.8 86.4z"></path></svg> <div class="color-picker-menu" style="display:none;"><div class="theme-options"><ul class="themecolor-select"><label for="themecolor-select">主题色:</label> <li><span class="default-theme"></span></li> </ul> <!----></div></div></button> <div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/AbnerMaiBlog/" class="nav-link router-link-active"><i class="iconfont icon-home"></i>
+  主页
+</a></div><div class="nav-item"><a href="/AbnerMaiBlog/blog/direct/" class="nav-link"><i class="iconfont icon-java"></i>
+  Development
+</a></div><div class="nav-item"><a href="/AbnerMaiBlog/english/" class="nav-link"><i class="iconfont icon-waline"></i>
+  English
+</a></div><div class="nav-item"><a href="/AbnerMaiBlog/guide/" class="nav-link"><i class="iconfont icon-creative"></i>
+  帮助
+</a></div></nav> <!----> <!----> <!----> <div class="content__navbar-end"></div></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><div vocab="https://schema.org/" typeof="Person" class="blogger-info mobile"><div data-balloon-pos="down" role="navigation" class="blogger hasIntro"><img property="image" alt="Blogger Avatar" src="/AbnerMaiBlog/images/logo/mayi-logo.png" class="avatar round"> <div property="name" class="name">Mr.Abner</div> <meta property="url" content="/AbnerMaiBlog/blog/direct/"></div> <div class="num-wrapper"><div><div class="num">51</div> <div>文章</div></div> <div><div class="num">20</div> <div>分类</div></div> <div><div class="num">51</div> <div>标签</div></div> <div><div class="num">51</div> <div>时间轴</div></div></div> <!----></div> <hr> <!----> <div class="content__sidebar-top"></div> <nav class="sidebar-nav-links"><div class="nav-item"><a href="/AbnerMaiBlog/" class="nav-link router-link-active"><i class="iconfont icon-home"></i>
+  主页
+</a></div><div class="nav-item"><a href="/AbnerMaiBlog/blog/direct/" class="nav-link"><i class="iconfont icon-java"></i>
+  Development
+</a></div><div class="nav-item"><a href="/AbnerMaiBlog/english/" class="nav-link"><i class="iconfont icon-waline"></i>
+  English
+</a></div><div class="nav-item"><a href="/AbnerMaiBlog/guide/" class="nav-link"><i class="iconfont icon-creative"></i>
+  帮助
+</a></div> <!----></nav> <!----> <div class="content__sidebar-center"></div> <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><i class="iconfont icon-icon-workingDirectory"></i> <span class="title">运维</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading clickable"><i class="iconfont icon-flow"></i> <span class="title">网络</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading clickable"><i class="iconfont icon-flow"></i> <span class="title">容器</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading clickable open"><i class="iconfont icon-flow"></i> <span class="title">工具</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><section class="sidebar-group collapsable is-sub-group depth-2"><p class="sidebar-heading clickable"><i class="iconfont icon-flow"></i> <span class="title">Jenkins</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-2"><p class="sidebar-heading clickable"><i class="iconfont icon-flow"></i> <span class="title">Git</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-2"><p class="sidebar-heading clickable"><i class="iconfont icon-flow"></i> <span class="title">WSL2</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-2"><p class="sidebar-heading clickable open"><i class="iconfont icon-flow"></i> <span class="title">Kubernetes</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/AbnerMaiBlog/blog/ops/K8S/kubernetesCommand/" aria-current="page" class="active sidebar-link"><i class="iconfont icon-tool"></i>Kubernetes指令学习</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/AbnerMaiBlog/blog/ops/K8S/kubernetesCommand/#kubectl" class="sidebar-link">kubectl</a></li><li class="sidebar-sub-header"><a href="/AbnerMaiBlog/blog/ops/K8S/kubernetesCommand/#kubectl-get" class="sidebar-link">kubectl get</a></li><li class="sidebar-sub-header"><a href="/AbnerMaiBlog/blog/ops/K8S/kubernetesCommand/#kubectl-apply" class="sidebar-link">kubectl apply</a></li><li class="sidebar-sub-header"><a href="/AbnerMaiBlog/blog/ops/K8S/kubernetesCommand/#kubectl-logs" class="sidebar-link">kubectl logs</a></li><li class="sidebar-sub-header"><a href="/AbnerMaiBlog/blog/ops/K8S/kubernetesCommand/#kubectl-replace" class="sidebar-link">kubectl replace</a></li><li class="sidebar-sub-header"><a href="/AbnerMaiBlog/blog/ops/K8S/kubernetesCommand/#kubectl-create" class="sidebar-link">kubectl create</a></li></ul></li></ul></section></li></ul></section></li></ul></section></li></ul> <!----> <div class="content__sidebar-bottom"></div> <!----></aside> <main class="page"><nav class="breadcrumb"><ol vocab="https://schema.org/" typeof="BreadcrumbList"><li property="itemListElement" typeof="ListItem"><a href="/AbnerMaiBlog/blog/ops/" property="item" typeof="WebPage" class="router-link-active"><i class="iconfont icon-article"></i> <span property="name">运维</span></a> <meta property="position" content="1"></li><li property="itemListElement" typeof="ListItem" class="is-active"><a href="/AbnerMaiBlog/blog/ops/K8S/kubernetesCommand/" aria-current="page" property="item" typeof="WebPage" class="router-link-exact-active router-link-active"><i class="iconfont icon-tool"></i> <span property="name">Kubernetes 指令学习</span></a> <meta property="position" content="2"></li></ol></nav> <!----> <div class="content__page-top"></div> <div vocab="https://schema.org/" typeof="Article" class="page-title"><h1><i class="iconfont icon-tool"></i> <span property="headline">Kubernetes 指令学习</span></h1> <div class="page-info"><span class="origin">原创💡</span> <span aria-label="作者🖊" data-balloon-pos="down"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="icon author-icon"><path d="M649.6 633.6c86.4-48 147.2-144 147.2-249.6 0-160-128-288-288-288s-288 128-288 288c0 108.8 57.6 201.6 147.2 249.6-121.6 48-214.4 153.6-240 288-3.2 9.6 0 19.2 6.4 25.6 3.2 9.6 12.8 12.8 22.4 12.8h704c9.6 0 19.2-3.2 25.6-12.8 6.4-6.4 9.6-16 6.4-25.6-25.6-134.4-121.6-240-243.2-288z" fill="currentColor"></path></svg> <span property="author">Abner Mai</span></span><!----><span aria-label="写作日期📅" data-balloon-pos="down" class="time-info"><svg viewBox="0 0 1030 1024" xmlns="http://www.w3.org/2000/svg" class="icon calendar-icon"><path d="M716.4 110.137c0-18.753-14.72-33.473-33.472-33.473-18.753 0-33.473 14.72-33.473 33.473v33.473h66.993v-33.473zm-334.87 0c0-18.753-14.72-33.473-33.473-33.473s-33.52 14.72-33.52 33.473v33.473h66.993v-33.473zm468.81 33.52H716.4v100.465c0 18.753-14.72 33.473-33.472 33.473a33.145 33.145 0 0 1-33.473-33.473V143.657H381.53v100.465c0 18.753-14.72 33.473-33.473 33.473a33.145 33.145 0 0 1-33.473-33.473V143.657H180.6A134.314 134.314 0 0 0 46.66 277.595v535.756A134.314 134.314 0 0 0 180.6 947.289h669.74a134.36 134.36 0 0 0 133.94-133.938V277.595a134.314 134.314 0 0 0-133.94-133.938zm33.473 267.877H147.126a33.145 33.145 0 0 1-33.473-33.473c0-18.752 14.72-33.473 33.473-33.473h736.687c18.752 0 33.472 14.72 33.472 33.473a33.145 33.145 0 0 1-33.472 33.473z" fill="currentColor"></path></svg> <span property="datePublished">2021-12-16 </span></span><span role="navigation" aria-label="分类🌈" data-balloon-pos="down" class="category-info enable"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="icon category-icon"><path d="M148.41 106.992h282.176c22.263 0 40.31 18.048 40.31 40.31V429.48c0 22.263-18.047 40.31-40.31 40.31H148.41c-22.263 0-40.311-18.047-40.311-40.31V147.302c0-22.263 18.048-40.31 40.311-40.31zm-.854 446.486H429.73c22.263 0 40.311 18.048 40.311 40.31v282.176c0 22.263-18.048 40.312-40.31 40.312H147.555c-22.263 0-40.311-18.049-40.311-40.312V593.79c0-22.263 18.048-40.311 40.31-40.311zm446.371-446.486h282.176c22.263 0 40.31 18.048 40.31 40.31V429.48c0 22.263-18.047 40.31-40.31 40.31H593.927c-22.263 0-40.311-18.047-40.311-40.31V147.302c0-22.263 18.048-40.31 40.31-40.31zm136.293 813.51H623.926c-40.925 0-74.22-33.388-74.22-74.425V623.992c0-41.038 33.387-74.424 74.425-74.424h222.085c41.038 0 74.424 33.226 74.424 74.067v114.233c0 10.244-8.304 18.548-18.547 18.548s-18.548-8.304-18.548-18.548V623.635c0-20.388-16.746-36.974-37.33-36.974H624.13c-20.585 0-37.331 16.747-37.331 37.33v222.086c0 20.585 16.654 37.331 37.126 37.331H730.22c10.243 0 18.547 8.304 18.547 18.547 0 10.244-8.304 18.547-18.547 18.547z" fill="currentColor"></path></svg> <span property="articleSection">DevOps</span></span><span aria-label="标签🏷" data-balloon-pos="down"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="icon tag-icon"><path d="M939.902 458.563 910.17 144.567c-1.507-16.272-14.465-29.13-30.737-30.737L565.438 84.098h-.402c-3.215 0-5.726 1.005-7.634 2.913l-470.39 470.39a10.004 10.004 0 0 0 0 14.164l365.423 365.424c1.909 1.908 4.42 2.913 7.132 2.913s5.223-1.005 7.132-2.913l470.39-470.39c2.01-2.11 3.014-5.023 2.813-8.036zm-240.067-72.121c-35.458 0-64.286-28.828-64.286-64.286s28.828-64.285 64.286-64.285 64.286 28.828 64.286 64.285-28.829 64.286-64.286 64.286z" fill="currentColor"></path></svg> <ul class="tags-wrapper"><li class="tag clickable tag0"><span role="navigation">Kubernetes</span></li><li class="tag clickable tag1"><span role="navigation">Docker</span></li></ul> <meta property="keywords" content="Kubernetes,Docker"></span><span aria-label="字数🔠" data-balloon-pos="down" class="words-info"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="icon word-icon"><path d="M518.217 432.64V73.143A73.143 73.143 0 0 1 603.43 1.097a512 512 0 0 1 419.474 419.474 73.143 73.143 0 0 1-72.046 85.212H591.36a73.143 73.143 0 0 1-73.143-73.143z" fill="currentColor"></path> <path d="M493.714 566.857h340.297a73.143 73.143 0 0 1 73.143 85.577A457.143 457.143 0 1 1 371.566 117.76a73.143 73.143 0 0 1 85.577 73.143v339.383a36.571 36.571 0 0 0 36.571 36.571z" fill="currentColor"></path></svg> <span>约 3958 字</span> <meta property="wordCount" content="3958"></span><span aria-label="阅读时间⌛" data-balloon-pos="down" class="reading-time-info"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="icon timer-icon"><path d="M799.387 122.15c4.402-2.978 7.38-7.897 7.38-13.463v-1.165c0-8.933-7.38-16.312-16.312-16.312H256.33c-8.933 0-16.311 7.38-16.311 16.312v1.165c0 5.825 2.977 10.874 7.637 13.592 4.143 194.44 97.22 354.963 220.201 392.763-122.204 37.542-214.893 196.511-220.2 389.397-4.661 5.049-7.638 11.651-7.638 19.03v5.825h566.49v-5.825c0-7.379-2.849-13.981-7.509-18.9-5.049-193.016-97.867-351.985-220.2-389.527 123.24-37.67 216.446-198.453 220.588-392.892zM531.16 450.445v352.632c117.674 1.553 211.787 40.778 211.787 88.676H304.097c0-48.286 95.149-87.382 213.728-88.676V450.445c-93.077-3.107-167.901-81.297-167.901-177.093 0-8.803 6.99-15.793 15.793-15.793 8.803 0 15.794 6.99 15.794 15.793 0 80.261 63.69 145.635 142.01 145.635s142.011-65.374 142.011-145.635c0-8.803 6.99-15.793 15.794-15.793s15.793 6.99 15.793 15.793c0 95.019-73.789 172.82-165.96 177.093z" fill="currentColor"></path></svg> <span>大约 13 分钟</span> <meta property="timeRequired" content="PT13M"></span></div> <!----> <hr></div> <div class="anchor-place-holder"><aside id="anchor"><div class="anchor-wrapper"><ul class="anchor-list"><li class="anchor"><a href="/AbnerMaiBlog/blog/ops/K8S/kubernetesCommand/#kubectl" class="anchor-link heading2"><div>kubectl</div></a></li><li class="anchor"><a href="/AbnerMaiBlog/blog/ops/K8S/kubernetesCommand/#kubectl-get" class="anchor-link heading2"><div>kubectl get</div></a></li><li class="anchor"><a href="/AbnerMaiBlog/blog/ops/K8S/kubernetesCommand/#kubectl-apply" class="anchor-link heading2"><div>kubectl apply</div></a></li><li class="anchor"><a href="/AbnerMaiBlog/blog/ops/K8S/kubernetesCommand/#kubectl-logs" class="anchor-link heading2"><div>kubectl logs</div></a></li><li class="anchor"><a href="/AbnerMaiBlog/blog/ops/K8S/kubernetesCommand/#kubectl-replace" class="anchor-link heading2"><div>kubectl replace</div></a></li><li class="anchor"><a href="/AbnerMaiBlog/blog/ops/K8S/kubernetesCommand/#kubectl-create" class="anchor-link heading2"><div>kubectl create</div></a></li></ul></div></aside></div> <!----> <div class="content__content-top"></div> <div class="theme-default-content content__default"><h1 id="kubernetes-grammar"><a href="#kubernetes-grammar" class="header-anchor">#</a> Kubernetes grammar</h1> <h2 id="kubectl"><a href="#kubectl" class="header-anchor">#</a> kubectl</h2> <div class="language-shell line-numbers-mode"><pre class="language-shell"><code><span class="token operator">&gt;</span>  kubectl -h
+kubectl controls the Kubernetes cluster manager.
+
+ Find <span class="token function">more</span> information at: https://kubernetes.io/docs/reference/kubectl/overview/
+
+Basic Commands <span class="token punctuation">(</span>Beginner<span class="token punctuation">)</span>:
+  create        Create a resource from a <span class="token function">file</span> or from stdin.
+  expose        使用 replication controller, service, deployment 或者 pod 并暴露它作为一个 新的 Kubernetes
+Service
+  run           在集群中运行一个指定的镜像
+  <span class="token builtin class-name">set</span>           为 objects 设置一个指定的特征
+
+Basic Commands <span class="token punctuation">(</span>Intermediate<span class="token punctuation">)</span>:
+  explain       查看资源的文档
+  get           显示一个或更多 resources
+  edit          在服务器上编辑一个资源
+  delete        Delete resources by filenames, stdin, resources and names, or by resources and label selector
+
+Deploy Commands:
+  rollout       Manage the rollout of a resource
+  scale         Set a new size <span class="token keyword">for</span> a Deployment, ReplicaSet or Replication Controller
+  autoscale     自动调整一个 Deployment, ReplicaSet, 或者 ReplicationController 的副本数量
+
+Cluster Management Commands:
+  certificate   修改 certificate 资源.
+  cluster-info  显示集群信息
+  <span class="token function">top</span>           Display Resource <span class="token punctuation">(</span>CPU/Memory/Storage<span class="token punctuation">)</span> usage.
+  cordon        标记 node 为 unschedulable
+  uncordon      标记 node 为 schedulable
+  drain         Drain node <span class="token keyword">in</span> preparation <span class="token keyword">for</span> maintenance
+  taint         更新一个或者多个 node 上的 taints
+
+Troubleshooting and Debugging Commands:
+  describe      显示一个指定 resource 或者 group 的 resources 详情
+  logs          输出容器在 pod 中的日志
+  attach        Attach 到一个运行中的 container
+  <span class="token builtin class-name">exec</span>          在一个 container 中执行一个命令
+  port-forward  Forward one or <span class="token function">more</span> <span class="token builtin class-name">local</span> ports to a pod
+  proxy         运行一个 proxy 到 Kubernetes API server
+  <span class="token function">cp</span>            复制 files 和 directories 到 containers 和从容器中复制 files 和 directories.
+  auth          Inspect authorization
+
+Advanced Commands:
+  <span class="token function">diff</span>          Diff live version against would-be applied version
+  apply         通过文件名或标准输入流<span class="token punctuation">(</span>stdin<span class="token punctuation">)</span>对资源进行配置
+  patch         使用 strategic merge patch 更新一个资源的 field<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+  replace       通过 filename 或者 stdin替换一个资源
+  <span class="token function">wait</span>          Experimental: Wait <span class="token keyword">for</span> a specific condition on one or many resources.
+  convert       在不同的 API versions 转换配置文件
+  kustomize     Build a kustomization target from a directory or a remote url.
+
+Settings Commands:
+  label         更新在这个资源上的 labels
+  annotate      更新一个资源的注解
+  completion    Output shell completion code <span class="token keyword">for</span> the specified shell <span class="token punctuation">(</span>bash or <span class="token function">zsh</span><span class="token punctuation">)</span>
+
+Other Commands:
+  alpha         Commands <span class="token keyword">for</span> <span class="token for-or-select variable">features</span> <span class="token keyword">in</span> alpha
+  api-resources Print the supported API resources on the server
+  api-versions  Print the supported API versions on the server, <span class="token keyword">in</span> the form of <span class="token string">&quot;group/version&quot;</span>
+  config        修改 kubeconfig 文件
+  plugin        Provides utilities <span class="token keyword">for</span> interacting with plugins.
+  version       输出 client 和 server 的版本信息
+
+Usage:
+  kubectl <span class="token punctuation">[</span>flags<span class="token punctuation">]</span> <span class="token punctuation">[</span>options<span class="token punctuation">]</span>
+
+Use <span class="token string">&quot;kubectl &lt;command&gt; --help&quot;</span> <span class="token keyword">for</span> <span class="token function">more</span> information about a given command.
+Use <span class="token string">&quot;kubectl options&quot;</span> <span class="token keyword">for</span> a list of global command-line options <span class="token punctuation">(</span>applies to all commands<span class="token punctuation">)</span>.
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br></div></div><h2 id="kubectl-get"><a href="#kubectl-get" class="header-anchor">#</a> kubectl get</h2> <p>help:</p> <div class="language-shell line-numbers-mode"><pre class="language-shell"><code><span class="token operator">&gt;</span> kubectl get -h
+Display one or many resources
+
+ Prints a table of the <span class="token function">most</span> important information about the specified resources. You can filter the list using a label
+selector and the --selector flag. If the desired resource <span class="token builtin class-name">type</span> is namespaced you will only see results <span class="token keyword">in</span> your current
+namespace unless you pass --all-namespaces.
+
+ Uninitialized objects are not shown unless --include-uninitialized is passed.
+
+ By specifying the output as <span class="token string">'template'</span> and providing a Go template as the value of the --template flag, you can filter
+the attributes of the fetched resources.
+
+Use <span class="token string">&quot;kubectl api-resources&quot;</span> <span class="token keyword">for</span> a complete list of supported resources.
+
+Examples:
+  <span class="token comment"># List all pods in ps output format.</span>
+  kubectl get pods
+  
+  <span class="token comment"># List all pods in ps output format with more information (such as node name).</span>
+  kubectl get pods -o wide
+  
+  <span class="token comment"># List a single replication controller with specified NAME in ps output format.</span>
+  kubectl get replicationcontroller web
+  
+  <span class="token comment"># List deployments in JSON output format, in the &quot;v1&quot; version of the &quot;apps&quot; API group:</span>
+  kubectl get deployments.v1.apps -o json
+  
+  <span class="token comment"># List a single pod in JSON output format.</span>
+  kubectl get -o json pod web-pod-13je7
+  
+  <span class="token comment"># List a pod identified by type and name specified in &quot;pod.yaml&quot; in JSON output format.</span>
+  kubectl get -f pod.yaml -o json
+  
+  <span class="token comment"># List resources from a directory with kustomization.yaml - e.g. dir/kustomization.yaml.</span>
+  kubectl get -k dir/
+  
+  <span class="token comment"># Return only the phase value of the specified pod.</span>
+  kubectl get -o template pod/web-pod-13je7 --template<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span>.status.phase<span class="token punctuation">}</span><span class="token punctuation">}</span>
+  
+  <span class="token comment"># List resource information in custom columns.</span>
+  kubectl get pod test-pod -o custom-columns<span class="token operator">=</span>CONTAINER:.spec.containers<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>.name,IMAGE:.spec.containers<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>.image
+  
+  <span class="token comment"># List all replication controllers and services together in ps output format.</span>
+  kubectl get rc,services
+  
+  <span class="token comment"># List one or more resources by their type and names.</span>
+  kubectl get rc/web service/frontend pods/web-pod-13je7
+
+Options:
+  -A, --all-namespaces<span class="token operator">=</span>false: If present, list the requested object<span class="token punctuation">(</span>s<span class="token punctuation">)</span> across all namespaces. Namespace <span class="token keyword">in</span> current
+context is ignored even <span class="token keyword">if</span> specified with --namespace.
+      --allow-missing-template-keys<span class="token operator">=</span>true: If true, ignore any errors <span class="token keyword">in</span> templates when a field or map key is missing <span class="token keyword">in</span>
+the template. Only applies to golang and jsonpath output formats.
+      --chunk-size<span class="token operator">=</span><span class="token number">500</span>: Return large lists <span class="token keyword">in</span> chunks rather than all at once. Pass <span class="token number">0</span> to disable. This flag is beta and
+may change <span class="token keyword">in</span> the future.
+      --field-selector<span class="token operator">=</span><span class="token string">''</span><span class="token builtin class-name">:</span> Selector <span class="token punctuation">(</span>field query<span class="token punctuation">)</span> to filter on, supports <span class="token string">'='</span>, <span class="token string">'=='</span>, and <span class="token string">'!='</span>.<span class="token punctuation">(</span>e.g. --field-selector
+<span class="token assign-left variable">key1</span><span class="token operator">=</span>value1,key2<span class="token operator">=</span>value2<span class="token punctuation">)</span>. The server only supports a limited number of field queries per type.
+  -f, --filename<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span>: Filename, directory, or URL to files identifying the resource to get from a server.
+      --ignore-not-found<span class="token operator">=</span>false: If the requested object does not exist the <span class="token builtin class-name">command</span> will <span class="token builtin class-name">return</span> <span class="token builtin class-name">exit</span> code <span class="token number">0</span>.
+  -k, --kustomize<span class="token operator">=</span><span class="token string">''</span><span class="token builtin class-name">:</span> Process the kustomization directory. This flag can<span class="token string">'t be used together with -f or -R.
+  -L, --label-columns=[]: Accepts a comma separated list of labels that are going to be presented as columns. Names are
+case-sensitive. You can also use multiple flag options like -L label1 -L label2...
+      --no-headers=false: When using the default or custom-column output format, don'</span>t print headers <span class="token punctuation">(</span>default print
+headers<span class="token punctuation">)</span>.
+  -o, --output<span class="token operator">=</span><span class="token string">''</span><span class="token builtin class-name">:</span> Output format. One of:
+json<span class="token operator">|</span>yaml<span class="token operator">|</span>wide<span class="token operator">|</span>name<span class="token operator">|</span>custom-columns<span class="token operator">=</span><span class="token punctuation">..</span>.<span class="token operator">|</span>custom-columns-file<span class="token operator">=</span><span class="token punctuation">..</span>.<span class="token operator">|</span>go-template<span class="token operator">=</span><span class="token punctuation">..</span>.<span class="token operator">|</span>go-template-file<span class="token operator">=</span><span class="token punctuation">..</span>.<span class="token operator">|</span><span class="token assign-left variable">jsonpath</span><span class="token operator">=</span><span class="token punctuation">..</span>.<span class="token operator">|</span>jsonpath-file<span class="token operator">=</span><span class="token punctuation">..</span>.
+See custom columns <span class="token punctuation">[</span>http://kubernetes.io/docs/user-guide/kubectl-overview/<span class="token comment">#custom-columns], golang template</span>
+<span class="token punctuation">[</span>http://golang.org/pkg/text/template/<span class="token comment">#pkg-overview] and jsonpath template</span>
+<span class="token punctuation">[</span>http://kubernetes.io/docs/user-guide/jsonpath<span class="token punctuation">]</span>.
+      --output-watch-events<span class="token operator">=</span>false: Output <span class="token function">watch</span> event objects when --watch or --watch-only is used. Existing objects are
+output as initial ADDED events.
+      --raw<span class="token operator">=</span><span class="token string">''</span><span class="token builtin class-name">:</span> Raw URI to request from the server.  Uses the transport specified by the kubeconfig file.
+  -R, --recursive<span class="token operator">=</span>false: Process the directory used <span class="token keyword">in</span> -f, --filename recursively. Useful when you want to manage
+related manifests organized within the same directory.
+  -l, --selector<span class="token operator">=</span><span class="token string">''</span><span class="token builtin class-name">:</span> Selector <span class="token punctuation">(</span>label query<span class="token punctuation">)</span> to filter on, supports <span class="token string">'='</span>, <span class="token string">'=='</span>, and <span class="token string">'!='</span>.<span class="token punctuation">(</span>e.g. -l <span class="token assign-left variable">key1</span><span class="token operator">=</span>value1,key2<span class="token operator">=</span>value2<span class="token punctuation">)</span>
+      --server-print<span class="token operator">=</span>true: If true, have the server <span class="token builtin class-name">return</span> the appropriate table output. Supports extension APIs and
+CRDs.
+      --show-kind<span class="token operator">=</span>false: If present, list the resource <span class="token builtin class-name">type</span> <span class="token keyword">for</span> the requested object<span class="token punctuation">(</span>s<span class="token punctuation">)</span>.
+      --show-labels<span class="token operator">=</span>false: When printing, show all labels as the last <span class="token function">column</span> <span class="token punctuation">(</span>default hide labels <span class="token function">column</span><span class="token punctuation">)</span>
+      --sort-by<span class="token operator">=</span><span class="token string">''</span><span class="token builtin class-name">:</span> If non-empty, <span class="token function">sort</span> list types using this field specification.  The field specification is expressed
+as a JSONPath expression <span class="token punctuation">(</span>e.g. <span class="token string">'{.metadata.name}'</span><span class="token punctuation">)</span>. The field <span class="token keyword">in</span> the API resource specified by this JSONPath expression
+must be an integer or a string.
+      --template<span class="token operator">=</span><span class="token string">''</span><span class="token builtin class-name">:</span> Template string or path to template <span class="token function">file</span> to use when -o<span class="token operator">=</span>go-template, -o<span class="token operator">=</span>go-template-file. The
+template <span class="token function">format</span> is golang templates <span class="token punctuation">[</span>http://golang.org/pkg/text/template/<span class="token comment">#pkg-overview].</span>
+  -w, --watch<span class="token operator">=</span>false: After listing/getting the requested object, <span class="token function">watch</span> <span class="token keyword">for</span> changes. Uninitialized objects are excluded
+<span class="token keyword">if</span> no object name is provided.
+      --watch-only<span class="token operator">=</span>false: Watch <span class="token keyword">for</span> changes to the requested object<span class="token punctuation">(</span>s<span class="token punctuation">)</span>, without listing/getting first.
+
+Usage:
+  kubectl get
+<span class="token punctuation">[</span><span class="token punctuation">(</span>-o<span class="token operator">|</span>--output<span class="token operator">=</span><span class="token punctuation">)</span>json<span class="token operator">|</span>yaml<span class="token operator">|</span>wide<span class="token operator">|</span>custom-columns<span class="token operator">=</span><span class="token punctuation">..</span>.<span class="token operator">|</span>custom-columns-file<span class="token operator">=</span><span class="token punctuation">..</span>.<span class="token operator">|</span>go-template<span class="token operator">=</span><span class="token punctuation">..</span>.<span class="token operator">|</span>go-template-file<span class="token operator">=</span><span class="token punctuation">..</span>.<span class="token operator">|</span><span class="token assign-left variable">jsonpath</span><span class="token operator">=</span><span class="token punctuation">..</span>.<span class="token operator">|</span>jsonpath-file<span class="token operator">=</span><span class="token punctuation">..</span>.<span class="token punctuation">]</span>
+<span class="token punctuation">(</span>TYPE<span class="token punctuation">[</span>.VERSION<span class="token punctuation">]</span><span class="token punctuation">[</span>.GROUP<span class="token punctuation">]</span> <span class="token punctuation">[</span>NAME <span class="token operator">|</span> -l label<span class="token punctuation">]</span> <span class="token operator">|</span> TYPE<span class="token punctuation">[</span>.VERSION<span class="token punctuation">]</span><span class="token punctuation">[</span>.GROUP<span class="token punctuation">]</span>/NAME <span class="token punctuation">..</span>.<span class="token punctuation">)</span> <span class="token punctuation">[</span>flags<span class="token punctuation">]</span> <span class="token punctuation">[</span>options<span class="token punctuation">]</span>
+
+Use <span class="token string">&quot;kubectl options&quot;</span> <span class="token keyword">for</span> a list of global command-line options <span class="token punctuation">(</span>applies to all commands<span class="token punctuation">)</span>.
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br></div></div><p>example:</p> <div class="language-shell line-numbers-mode"><pre class="language-shell"><code><span class="token operator">&gt;</span> kubectl get namespace
+default                Active   202d
+fluent-bit             Active   2d23h
+kube-node-lease        Active   202d
+kube-public            Active   202d
+kube-system            Active   202d
+kubernetes-dashboard   Active   46d
+logging                Active   2d17h
+dev                    Active   48d
+sit                    Active   25d
+
+<span class="token operator">&gt;</span> kubectl get pods -A
+dev               podsName1        <span class="token number">1</span>/1     Running            <span class="token number">0</span>          2d
+dev               podsName2        <span class="token number">1</span>/1     Running            <span class="token number">0</span>          40h
+sit               podsName1        <span class="token number">1</span>/1     Running            <span class="token number">0</span>          7d1h
+sit               podsName1        <span class="token number">1</span>/1     Running            <span class="token number">0</span>          7d1h
+
+<span class="token comment"># -n dev: 指定dev命名空间</span>
+<span class="token operator">&gt;</span> kubectl get pods -n dev
+NAME                   READY   STATUS             RESTARTS   AGE
+podsName1              <span class="token number">1</span>/1     Running            <span class="token number">0</span>          2d3h
+podsName2              <span class="token number">1</span>/1     Running            <span class="token number">0</span>          2d3h
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br></div></div><h2 id="kubectl-apply"><a href="#kubectl-apply" class="header-anchor">#</a> kubectl apply</h2> <div class="language-shell line-numbers-mode"><pre class="language-shell"><code><span class="token operator">&gt;</span>  kubectl apply -h
+Apply a configuration to a resource by filename or stdin. The resource name must be specified. This resource will be
+created <span class="token keyword">if</span> it doesn<span class="token string">'t exist yet. To use '</span>apply<span class="token string">', always create the resource initially with either '</span>apply<span class="token string">' or '</span>create
+--save-config<span class="token string">'.
+
+ JSON and YAML formats are accepted.
+
+ Alpha Disclaimer: the --prune functionality is not yet complete. Do not use unless you are aware of what the current
+state is. See https://issues.k8s.io/34274.
+
+Examples:
+  # Apply the configuration in pod.json to a pod.
+  kubectl apply -f ./pod.json
+  
+  # Apply resources from a directory containing kustomization.yaml - e.g. dir/kustomization.yaml.
+  kubectl apply -k dir/
+  
+  # Apply the JSON passed into stdin to a pod.
+  cat pod.json | kubectl apply -f -
+  
+  # Note: --prune is still in Alpha
+  # Apply the configuration in manifest.yaml that matches label app=nginx and delete all the other resources that are
+not in the file and match label app=nginx.
+  kubectl apply --prune -f manifest.yaml -l app=nginx
+  
+  # Apply the configuration in manifest.yaml and delete all the other configmaps that are not in the file.
+  kubectl apply --prune -f manifest.yaml --all --prune-whitelist=core/v1/ConfigMap
+
+Available Commands:
+  edit-last-applied Edit latest last-applied-configuration annotations of a resource/object
+  set-last-applied  Set the last-applied-configuration annotation on a live object to match the contents of a file.
+  view-last-applied 显示最后的 resource/object 的 last-applied-configuration annotations
+
+Options:
+      --all=false: Select all resources in the namespace of the specified resource types.
+      --allow-missing-template-keys=true: If true, ignore any errors in templates when a field or map key is missing in
+the template. Only applies to golang and jsonpath output formats.
+      --cascade=true: If true, cascade the deletion of the resources managed by this resource (e.g. Pods created by a
+ReplicationController).  Default true.
+      --dry-run='</span>none<span class="token string">': Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be
+sent, without sending it. If server strategy, submit server-side request without persisting the resource.
+      --field-manager='</span>kubectl<span class="token string">': Name of the manager used to track field ownership.
+  -f, --filename=[]: that contains the configuration to apply
+      --force=false: If true, immediately remove resources from API and bypass graceful deletion. Note that immediate
+deletion of some resources may result in inconsistency or data loss and requires confirmation.
+      --force-conflicts=false: If true, server-side apply will force the changes against conflicts.
+      --grace-period=-1: Period of time in seconds given to the resource to terminate gracefully. Ignored if negative.
+Set to 1 for immediate shutdown. Can only be set to 0 when --force is true (force deletion).
+  -k, --kustomize='</span>': Process a kustomization directory. This flag can<span class="token string">'t be used together with -f or -R.
+      --openapi-patch=true: If true, use openapi to calculate diff when the openapi presents and the resource can be
+found in the openapi spec. Otherwise, fall back to use baked-in types.
+  -o, --output='</span>': Output format. One of:
+json<span class="token operator">|</span>yaml<span class="token operator">|</span>name<span class="token operator">|</span>go-template<span class="token operator">|</span>go-template-file<span class="token operator">|</span>template<span class="token operator">|</span>templatefile<span class="token operator">|</span>jsonpath<span class="token operator">|</span>jsonpath-file.
+      --overwrite<span class="token operator">=</span>true: Automatically resolve conflicts between the modified and live configuration by using values from
+the modified configuration
+      --prune<span class="token operator">=</span>false: Automatically delete resource objects, including the uninitialized ones, that <span class="token keyword">do</span> not appear <span class="token keyword">in</span> the
+configs and are created by either apply or create --save-config. Should be used with either -l or --all.
+      --prune-whitelist<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span>: Overwrite the default whitelist with <span class="token operator">&lt;</span>group/version/kind<span class="token operator">&gt;</span> <span class="token keyword">for</span> --prune
+      --record<span class="token operator">=</span>false: Record current kubectl <span class="token builtin class-name">command</span> <span class="token keyword">in</span> the resource annotation. If <span class="token builtin class-name">set</span> to false, <span class="token keyword">do</span> not record the
+command. If <span class="token builtin class-name">set</span> to true, record the command. If not set, default to updating the existing annotation value only <span class="token keyword">if</span> one
+already exists.
+  -R, --recursive<span class="token operator">=</span>false: Process the directory used <span class="token keyword">in</span> -f, --filename recursively. Useful when you want to manage
+related manifests organized within the same directory.
+  -l, --selector<span class="token operator">=</span><span class="token string">''</span><span class="token builtin class-name">:</span> Selector <span class="token punctuation">(</span>label query<span class="token punctuation">)</span> to filter on, supports <span class="token string">'='</span>, <span class="token string">'=='</span>, and <span class="token string">'!='</span>.<span class="token punctuation">(</span>e.g. -l <span class="token assign-left variable">key1</span><span class="token operator">=</span>value1,key2<span class="token operator">=</span>value2<span class="token punctuation">)</span>
+      --server-side<span class="token operator">=</span>false: If true, apply runs <span class="token keyword">in</span> the server instead of the client.
+      --template<span class="token operator">=</span><span class="token string">''</span><span class="token builtin class-name">:</span> Template string or path to template <span class="token function">file</span> to use when -o<span class="token operator">=</span>go-template, -o<span class="token operator">=</span>go-template-file. The
+template <span class="token function">format</span> is golang templates <span class="token punctuation">[</span>http://golang.org/pkg/text/template/<span class="token comment">#pkg-overview].</span>
+      --timeout<span class="token operator">=</span>0s: The length of <span class="token function">time</span> to <span class="token function">wait</span> before giving up on a delete, zero means determine a <span class="token function">timeout</span> from the
+size of the object
+      --validate<span class="token operator">=</span>true: If true, use a schema to validate the input before sending it
+      --wait<span class="token operator">=</span>false: If true, <span class="token function">wait</span> <span class="token keyword">for</span> resources to be gone before returning. This waits <span class="token keyword">for</span> finalizers.
+
+Usage:
+  kubectl apply <span class="token punctuation">(</span>-f FILENAME <span class="token operator">|</span> -k DIRECTORY<span class="token punctuation">)</span> <span class="token punctuation">[</span>options<span class="token punctuation">]</span>
+
+Use <span class="token string">&quot;kubectl &lt;command&gt; --help&quot;</span> <span class="token keyword">for</span> <span class="token function">more</span> information about a given command.
+Use <span class="token string">&quot;kubectl options&quot;</span> <span class="token keyword">for</span> a list of global command-line options <span class="token punctuation">(</span>applies to all commands<span class="token punctuation">)</span>.
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br></div></div><p>example:</p> <div class="language-shell line-numbers-mode"><pre class="language-shell"><code><span class="token comment"># -n dev: 指定dev命名空间</span>
+<span class="token operator">&gt;</span> kubectl apply -f **.yaml -n dev
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><h2 id="kubectl-logs"><a href="#kubectl-logs" class="header-anchor">#</a> kubectl logs</h2> <div class="language-shell line-numbers-mode"><pre class="language-shell"><code><span class="token operator">&gt;</span> kubectl logs -h
+Print the logs <span class="token keyword">for</span> a container <span class="token keyword">in</span> a pod or specified resource. If the pod has only one container, the container name is
+optional.
+
+Examples:
+  <span class="token comment"># Return snapshot logs from pod nginx with only one container</span>
+  kubectl logs nginx
+  
+  <span class="token comment"># Return snapshot logs from pod nginx with multi containers</span>
+  kubectl logs nginx --all-containers<span class="token operator">=</span>true
+  
+  <span class="token comment"># Return snapshot logs from all containers in pods defined by label app=nginx</span>
+  kubectl logs -lapp<span class="token operator">=</span>nginx --all-containers<span class="token operator">=</span>true
+  
+  <span class="token comment"># Return snapshot of previous terminated ruby container logs from pod web-1</span>
+  kubectl logs -p -c ruby web-1
+  
+  <span class="token comment"># Begin streaming the logs of the ruby container in pod web-1</span>
+  kubectl logs -f -c ruby web-1
+  
+  <span class="token comment"># Begin streaming the logs from all containers in pods defined by label app=nginx</span>
+  kubectl logs -f -lapp<span class="token operator">=</span>nginx --all-containers<span class="token operator">=</span>true
+  
+  <span class="token comment"># Display only the most recent 20 lines of output in pod nginx</span>
+  kubectl logs --tail<span class="token operator">=</span><span class="token number">20</span> nginx
+  
+  <span class="token comment"># Show all logs from pod nginx written in the last hour</span>
+  kubectl logs --since<span class="token operator">=</span>1h nginx
+  
+  <span class="token comment"># Show logs from a kubelet with an expired serving certificate</span>
+  kubectl logs --insecure-skip-tls-verify-backend nginx
+  
+  <span class="token comment"># Return snapshot logs from first container of a job named hello</span>
+  kubectl logs job/hello
+  
+  <span class="token comment"># Return snapshot logs from container nginx-1 of a deployment named nginx</span>
+  kubectl logs deployment/nginx -c nginx-1
+
+Options:
+      --all-containers<span class="token operator">=</span>false: Get all containers<span class="token string">' logs in the pod(s).
+  -c, --container='</span>': Print the logs of this container
+  -f, --follow<span class="token operator">=</span>false: Specify <span class="token keyword">if</span> the logs should be streamed.
+      --ignore-errors<span class="token operator">=</span>false: If watching / following pod logs, allow <span class="token keyword">for</span> any errors that occur to be non-fatal
+      --insecure-skip-tls-verify-backend<span class="token operator">=</span>false: Skip verifying the identity of the kubelet that logs are requested from.
+In theory, an attacker could provide invalid log content back. You might want to use this <span class="token keyword">if</span> your kubelet serving
+certificates have expired.
+      --limit-bytes<span class="token operator">=</span><span class="token number">0</span>: Maximum bytes of logs to return. Defaults to no limit.
+      --max-log-requests<span class="token operator">=</span><span class="token number">5</span>: Specify maximum number of concurrent logs to follow when using by a selector. Defaults to <span class="token number">5</span>.
+      --pod-running-timeout<span class="token operator">=</span>20s: The length of <span class="token function">time</span> <span class="token punctuation">(</span>like 5s, 2m, or 3h, higher than zero<span class="token punctuation">)</span> to <span class="token function">wait</span> <span class="token keyword">until</span> at least one
+pod is running
+      --prefix<span class="token operator">=</span>false: Prefix each log line with the log <span class="token builtin class-name">source</span> <span class="token punctuation">(</span>pod name and container name<span class="token punctuation">)</span>
+  -p, --previous<span class="token operator">=</span>false: If true, print the logs <span class="token keyword">for</span> the previous instance of the container <span class="token keyword">in</span> a pod <span class="token keyword">if</span> it exists.
+  -l, --selector<span class="token operator">=</span><span class="token string">''</span><span class="token builtin class-name">:</span> Selector <span class="token punctuation">(</span>label query<span class="token punctuation">)</span> to filter on.
+      --since<span class="token operator">=</span>0s: Only <span class="token builtin class-name">return</span> logs newer than a relative duration like 5s, 2m, or 3h. Defaults to all logs. Only one of
+since-time / since may be used.
+      --since-time<span class="token operator">=</span><span class="token string">''</span><span class="token builtin class-name">:</span> Only <span class="token builtin class-name">return</span> logs after a specific <span class="token function">date</span> <span class="token punctuation">(</span>RFC3339<span class="token punctuation">)</span>. Defaults to all logs. Only one of since-time /
+since may be used.
+      --tail<span class="token operator">=</span>-1: Lines of recent log <span class="token function">file</span> to display. Defaults to -1 with no selector, showing all log lines otherwise
+<span class="token number">10</span>, <span class="token keyword">if</span> a selector is provided.
+      --timestamps<span class="token operator">=</span>false: Include timestamps on each line <span class="token keyword">in</span> the log output
+
+Usage:
+  kubectl logs <span class="token punctuation">[</span>-f<span class="token punctuation">]</span> <span class="token punctuation">[</span>-p<span class="token punctuation">]</span> <span class="token punctuation">(</span>POD <span class="token operator">|</span> TYPE/NAME<span class="token punctuation">)</span> <span class="token punctuation">[</span>-c CONTAINER<span class="token punctuation">]</span> <span class="token punctuation">[</span>options<span class="token punctuation">]</span>
+
+Use <span class="token string">&quot;kubectl options&quot;</span> <span class="token keyword">for</span> a list of global command-line options <span class="token punctuation">(</span>applies to all commands<span class="token punctuation">)</span>.
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br></div></div><h2 id="kubectl-replace"><a href="#kubectl-replace" class="header-anchor">#</a> kubectl replace</h2> <div class="language-shell line-numbers-mode"><pre class="language-shell"><code><span class="token operator">&gt;</span>  kubectl replace -h
+Replace a resource by filename or stdin.
+
+ JSON and YAML formats are accepted. If replacing an existing resource, the complete resource spec must be provided.
+This can be obtained by
+
+  $ kubectl get TYPE NAME -o yaml
+
+Examples:
+  <span class="token comment"># Replace a pod using the data in pod.json.</span>
+  kubectl replace -f ./pod.json
+  
+  <span class="token comment"># Replace a pod based on the JSON passed into stdin.</span>
+  <span class="token function">cat</span> pod.json <span class="token operator">|</span> kubectl replace -f -
+  
+  <span class="token comment"># Update a single-container pod's image version (tag) to v4</span>
+  kubectl get pod mypod -o yaml <span class="token operator">|</span> <span class="token function">sed</span> <span class="token string">'s/\(image: myimage\):.*$/\1:v4/'</span> <span class="token operator">|</span> kubectl replace -f -
+  
+  <span class="token comment"># Force replace, delete and then re-create the resource</span>
+  kubectl replace --force -f ./pod.json
+
+Options:
+      --allow-missing-template-keys<span class="token operator">=</span>true: If true, ignore any errors <span class="token keyword">in</span> templates when a field or map key is missing <span class="token keyword">in</span>
+the template. Only applies to golang and jsonpath output formats.
+      --cascade<span class="token operator">=</span>true: If true, cascade the deletion of the resources managed by this resource <span class="token punctuation">(</span>e.g. Pods created by a
+ReplicationController<span class="token punctuation">)</span>.  Default true.
+      --dry-run<span class="token operator">=</span><span class="token string">'none'</span><span class="token builtin class-name">:</span> Must be <span class="token string">&quot;none&quot;</span>, <span class="token string">&quot;server&quot;</span>, or <span class="token string">&quot;client&quot;</span><span class="token builtin class-name">.</span> If client strategy, only print the object that would be
+sent, without sending it. If server strategy, submit server-side request without persisting the resource.
+  -f, --filename<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span>: to use to replace the resource.
+      --force<span class="token operator">=</span>false: If true, immediately remove resources from API and bypass graceful deletion. Note that immediate
+deletion of some resources may result <span class="token keyword">in</span> inconsistency or data loss and requires confirmation.
+      --grace-period<span class="token operator">=</span>-1: Period of <span class="token function">time</span> <span class="token keyword">in</span> seconds given to the resource to terminate gracefully. Ignored <span class="token keyword">if</span> negative.
+Set to <span class="token number">1</span> <span class="token keyword">for</span> immediate shutdown. Can only be <span class="token builtin class-name">set</span> to <span class="token number">0</span> when --force is <span class="token boolean">true</span> <span class="token punctuation">(</span>force deletion<span class="token punctuation">)</span>.
+  -k, --kustomize<span class="token operator">=</span><span class="token string">''</span><span class="token builtin class-name">:</span> Process a kustomization directory. This flag can<span class="token string">'t be used together with -f or -R.
+  -o, --output='</span>': Output format. One of:
+json<span class="token operator">|</span>yaml<span class="token operator">|</span>name<span class="token operator">|</span>go-template<span class="token operator">|</span>go-template-file<span class="token operator">|</span>template<span class="token operator">|</span>templatefile<span class="token operator">|</span>jsonpath<span class="token operator">|</span>jsonpath-file.
+      --raw<span class="token operator">=</span><span class="token string">''</span><span class="token builtin class-name">:</span> Raw URI to PUT to the server.  Uses the transport specified by the kubeconfig file.
+  -R, --recursive<span class="token operator">=</span>false: Process the directory used <span class="token keyword">in</span> -f, --filename recursively. Useful when you want to manage
+related manifests organized within the same directory.
+      --save-config<span class="token operator">=</span>false: If true, the configuration of current object will be saved <span class="token keyword">in</span> its annotation. Otherwise, the
+annotation will be unchanged. This flag is useful when you want to perform kubectl apply on this object <span class="token keyword">in</span> the future.
+      --template<span class="token operator">=</span><span class="token string">''</span><span class="token builtin class-name">:</span> Template string or path to template <span class="token function">file</span> to use when -o<span class="token operator">=</span>go-template, -o<span class="token operator">=</span>go-template-file. The
+template <span class="token function">format</span> is golang templates <span class="token punctuation">[</span>http://golang.org/pkg/text/template/<span class="token comment">#pkg-overview].</span>
+      --timeout<span class="token operator">=</span>0s: The length of <span class="token function">time</span> to <span class="token function">wait</span> before giving up on a delete, zero means determine a <span class="token function">timeout</span> from the
+size of the object
+      --validate<span class="token operator">=</span>true: If true, use a schema to validate the input before sending it
+      --wait<span class="token operator">=</span>false: If true, <span class="token function">wait</span> <span class="token keyword">for</span> resources to be gone before returning. This waits <span class="token keyword">for</span> finalizers.
+
+Usage:
+  kubectl replace -f FILENAME <span class="token punctuation">[</span>options<span class="token punctuation">]</span>
+
+Use <span class="token string">&quot;kubectl options&quot;</span> <span class="token keyword">for</span> a list of global command-line options <span class="token punctuation">(</span>applies to all commands<span class="token punctuation">)</span>.
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br></div></div><h2 id="kubectl-create"><a href="#kubectl-create" class="header-anchor">#</a> kubectl create</h2> <div class="language-shell line-numbers-mode"><pre class="language-shell"><code><span class="token operator">&gt;</span> kubectl create -h
+Create a resource from a <span class="token function">file</span> or from stdin.
+
+ JSON and YAML formats are accepted.
+
+Examples:
+  <span class="token comment"># Create a pod using the data in pod.json.</span>
+  kubectl create -f ./pod.json
+  
+  <span class="token comment"># Create a pod based on the JSON passed into stdin.</span>
+  <span class="token function">cat</span> pod.json <span class="token operator">|</span> kubectl create -f -
+  
+  <span class="token comment"># Edit the data in docker-registry.yaml in JSON then create the resource using the edited data.</span>
+  kubectl create -f docker-registry.yaml --edit -o json
+
+Available Commands:
+  clusterrole         Create a ClusterRole.
+  clusterrolebinding  为一个指定的 ClusterRole 创建一个 ClusterRoleBinding
+  configmap           从本地 file, directory 或者 literal value 创建一个 configmap
+  cronjob             Create a cronjob with the specified name.
+  deployment          创建一个指定名称的 deployment.
+  job                 Create a job with the specified name.
+  namespace           创建一个指定名称的 namespace
+  poddisruptionbudget 创建一个指定名称的 pod disruption budget.
+  priorityclass       Create a priorityclass with the specified name.
+  <span class="token function">quota</span>               创建一个指定名称的 quota.
+  role                Create a role with single rule.
+  rolebinding         为一个指定的 Role 或者 ClusterRole创建一个 RoleBinding
+  secret              使用指定的 subcommand 创建一个 secret
+  <span class="token function">service</span>             使用指定的 subcommand 创建一个 service.
+  serviceaccount      创建一个指定名称的 <span class="token function">service</span> account
+
+Options:
+      --allow-missing-template-keys<span class="token operator">=</span>true: If true, ignore any errors <span class="token keyword">in</span> templates when a field or map key is missing <span class="token keyword">in</span>
+the template. Only applies to golang and jsonpath output formats.
+      --dry-run<span class="token operator">=</span><span class="token string">'none'</span><span class="token builtin class-name">:</span> Must be <span class="token string">&quot;none&quot;</span>, <span class="token string">&quot;server&quot;</span>, or <span class="token string">&quot;client&quot;</span><span class="token builtin class-name">.</span> If client strategy, only print the object that would be
+sent, without sending it. If server strategy, submit server-side request without persisting the resource.
+      --edit<span class="token operator">=</span>false: Edit the API resource before creating
+  -f, --filename<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span>: Filename, directory, or URL to files to use to create the resource
+  -k, --kustomize<span class="token operator">=</span><span class="token string">''</span><span class="token builtin class-name">:</span> Process the kustomization directory. This flag can<span class="token string">'t be used together with -f or -R.
+  -o, --output='</span>': Output format. One of:
+json<span class="token operator">|</span>yaml<span class="token operator">|</span>name<span class="token operator">|</span>go-template<span class="token operator">|</span>go-template-file<span class="token operator">|</span>template<span class="token operator">|</span>templatefile<span class="token operator">|</span>jsonpath<span class="token operator">|</span>jsonpath-file.
+      --raw<span class="token operator">=</span><span class="token string">''</span><span class="token builtin class-name">:</span> Raw URI to POST to the server.  Uses the transport specified by the kubeconfig file.
+      --record<span class="token operator">=</span>false: Record current kubectl <span class="token builtin class-name">command</span> <span class="token keyword">in</span> the resource annotation. If <span class="token builtin class-name">set</span> to false, <span class="token keyword">do</span> not record the
+command. If <span class="token builtin class-name">set</span> to true, record the command. If not set, default to updating the existing annotation value only <span class="token keyword">if</span> one
+already exists.
+  -R, --recursive<span class="token operator">=</span>false: Process the directory used <span class="token keyword">in</span> -f, --filename recursively. Useful when you want to manage
+related manifests organized within the same directory.
+      --save-config<span class="token operator">=</span>false: If true, the configuration of current object will be saved <span class="token keyword">in</span> its annotation. Otherwise, the
+annotation will be unchanged. This flag is useful when you want to perform kubectl apply on this object <span class="token keyword">in</span> the future.
+  -l, --selector<span class="token operator">=</span><span class="token string">''</span><span class="token builtin class-name">:</span> Selector <span class="token punctuation">(</span>label query<span class="token punctuation">)</span> to filter on, supports <span class="token string">'='</span>, <span class="token string">'=='</span>, and <span class="token string">'!='</span>.<span class="token punctuation">(</span>e.g. -l <span class="token assign-left variable">key1</span><span class="token operator">=</span>value1,key2<span class="token operator">=</span>value2<span class="token punctuation">)</span>
+      --template<span class="token operator">=</span><span class="token string">''</span><span class="token builtin class-name">:</span> Template string or path to template <span class="token function">file</span> to use when -o<span class="token operator">=</span>go-template, -o<span class="token operator">=</span>go-template-file. The
+template <span class="token function">format</span> is golang templates <span class="token punctuation">[</span>http://golang.org/pkg/text/template/<span class="token comment">#pkg-overview].</span>
+      --validate<span class="token operator">=</span>true: If true, use a schema to validate the input before sending it
+      --windows-line-endings<span class="token operator">=</span>false: Only relevant <span class="token keyword">if</span> --edit<span class="token operator">=</span>true. Defaults to the line ending native to your platform.
+
+Usage:
+  kubectl create -f FILENAME <span class="token punctuation">[</span>options<span class="token punctuation">]</span>
+
+Use <span class="token string">&quot;kubectl &lt;command&gt; --help&quot;</span> <span class="token keyword">for</span> <span class="token function">more</span> information about a given command.
+Use <span class="token string">&quot;kubectl options&quot;</span> <span class="token keyword">for</span> a list of global command-line options <span class="token punctuation">(</span>applies to all commands<span class="token punctuation">)</span>.
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br></div></div></div> <!----> <div class="content__content-bottom"></div> <footer class="page-meta"><!----> <div class="meta-item update-time"><span class="label">上次编辑于:</span> <span class="info">2022年1月13日 10:43</span></div> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev"><a href="/AbnerMaiBlog/blog/ops/WSL/VBScript-Plus/" class="prev"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="icon prev-icon"><path d="M906.783 588.79c-.02 8.499-6.882 15.36-15.38 15.37l-443.7-.01 75.704 191.682c2.52 6.42.482 13.763-5.038 17.91-5.52 4.168-13.138 4.147-18.616-.092L123.228 524.175a15.362 15.362 0 0 1-6-12.165c0-4.782 2.222-9.277 6-12.185L499.753 210.35a15.388 15.388 0 0 1 9.38-3.195c3.236 0 6.502 1.034 9.236 3.103 5.52 4.147 7.578 11.49 5.038 17.91L447.683 419.84l443.72-.01c8.498.01 15.36 6.881 15.36 15.36l.02 153.6z" fill="currentColor"></path></svg>
+        Windows10 VBScript 操作 WSL
+      </a></span> <!----></p></div> <!----> <!----> <div class="content__page-bottom"></div></main> <footer class="footer-wrapper"><!----> <div class="footer">welcome to AbnerMai's Blog</div> <div class="copyright">Copyright © 2022 Mr.Abner</div></footer></div><div class="global-ui"><!----><!----><div id="pwa-install"><!----> <div id="install-modal-wrapper" style="display:none;"><div class="background"></div> <div class="install-modal"><div class="header"><button aria-label="关闭" class="close-button"><svg width="23" height="22" xmlns="http://www.w3.org/2000/svg" class="icon close-icon"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.12.358a1.224 1.224 0 011.729 0l8.92 8.914L20.686.358a1.224 1.224 0 011.73 1.728L13.497 11l8.92 8.913a1.222 1.222 0 11-1.73 1.729l-8.919-8.913-8.92 8.913a1.224 1.224 0 01-1.729-1.729L10.04 11l-8.92-8.914a1.222 1.222 0 010-1.728z" fill="currentColor"></path></svg></button> <div class="logo"><!----> <div class="title"><h1></h1> <p class="desc">该应用可以安装在您的 PC 或移动设备上。这将使该 Web 应用程序外观和行为与其他应用程序相同。它将在出现在应用程序列表中，并可以固定到主屏幕，开始菜单或任务栏。此 Web 应用程序还将能够与其他应用程序和您的操作系统安全地进行交互。</p></div></div></div> <div class="content"><div class="highlight"><!----> <!----></div> <div class="description"><h3>详情</h3> <p></p></div></div> <div class="button-wrapper"><button class="install-button">
+        安装 <span></span></button> <button class="cancel-button">
+        取消
+      </button></div></div></div></div><div tabindex="-1" role="dialog" aria-hidden="true" class="pswp"><div class="pswp__bg"></div> <div class="pswp__scroll-wrap"><div class="pswp__container"><div class="pswp__item"></div> <div class="pswp__item"></div> <div class="pswp__item"></div></div> <div class="pswp__ui pswp__ui--hidden"><div class="pswp__top-bar"><div class="pswp__counter"></div> <button class="pswp__button pswp__button--close"></button> <button class="pswp__button pswp__button--share"></button> <button class="pswp__button pswp__button--fs"></button> <button class="pswp__button pswp__button--zoom"></button> <div class="pswp__preloader"><div class="pswp__preloader__icn"><div class="pswp__preloader__cut"><div class="pswp__preloader__donut"></div></div></div></div></div> <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class="pswp__share-tooltip"></div></div> <button class="pswp__button pswp__button--arrow--left"></button> <button class="pswp__button pswp__button--arrow--right"></button> <div class="pswp__caption"><div class="pswp__caption__center"></div></div></div></div></div></div></div>
+    <script src="/AbnerMaiBlog/assets/js/app.42ce9417.js" defer></script><script src="/AbnerMaiBlog/assets/js/vendors~layout-Layout.26036b5e.js" defer></script><script src="/AbnerMaiBlog/assets/js/vendors~layout-Blog~layout-Layout~layout-NotFound.7f1770bf.js" defer></script><script src="/AbnerMaiBlog/assets/js/page-Kubernetes指令学习.a51b9b00.js" defer></script><script src="/AbnerMaiBlog/assets/js/vendors~layout-Blog~layout-Layout~layout-NotFound~layout-Slide.0c451bde.js" defer></script>
+  </body>
+</html>
